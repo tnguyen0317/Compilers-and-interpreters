@@ -5,7 +5,7 @@
 int lookahead;
 
 void match(int);
-void start(),assignment(),grej(), list(), expr(), moreterms(), term(), morefactors(), factor();
+void start(),assignment(),exponent(), list(), expr(), moreterms(), term(), morefactors(), factor();
 
 void parse()  /*  parses and translates expression list  */
 {
@@ -44,6 +44,37 @@ void expr ()
   term(); moreterms();
 }
 
+void exponent()
+{
+  if (lookahead == '(') {
+    match('('); expr(); match(')');
+  }
+
+  else if (lookahead == ID) {
+    int id_lexeme = tokenval;
+    match(ID);
+    emit(ID, id_lexeme);
+  }
+  else if (lookahead == NUM) {
+    int num_value = tokenval;
+    match(NUM);
+    emit(NUM, num_value);
+  }
+  else
+    error("syntax error in factor");
+
+}
+void moreexponents()
+{
+  if (lookahead == '^') {
+    match('^'); exponent(); emit('^', tokenval); moreexponents(); 
+  }
+  else {
+   /* Empty */
+  }
+    
+}
+
 void moreterms()
 {
   if (lookahead == '+') {
@@ -71,6 +102,7 @@ void morefactors ()
   else if (lookahead == '/') {
     match('/'); factor(); emit('/', tokenval); morefactors();
   }
+
   else if (lookahead == DIV) {
     match(DIV); factor(); emit(DIV, tokenval); morefactors();
   }
@@ -84,21 +116,7 @@ void morefactors ()
 
 void factor ()
 {
-  if (lookahead == '(') {
-    match('('); expr(); match(')');
-  }
-  else if (lookahead == ID) {
-    int id_lexeme = tokenval;
-    match(ID);
-    emit(ID, id_lexeme);
-  }
-  else if (lookahead == NUM) {
-    int num_value = tokenval;
-    match(NUM);
-    emit(NUM, num_value);
-  }
-  else
-    error("syntax error in factor");
+    exponent(); moreexponents();
 }
 
 void match(int t)
