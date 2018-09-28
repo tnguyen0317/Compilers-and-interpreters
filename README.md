@@ -1,5 +1,5 @@
 # Compilers and interpreters
-Laborations done in the course [Compilers and Interpreters] (http://lily.oru.se/studieinformation/VisaKursplan?kurskod=DT125G&termin=20172&sprak=en) at Örebro University. 
+Laborations done in the course [Compilers and Interpreters](http://lily.oru.se/studieinformation/VisaKursplan?kurskod=DT125G&termin=20172&sprak=en) at Örebro University. 
 
 ### Cloning
 
