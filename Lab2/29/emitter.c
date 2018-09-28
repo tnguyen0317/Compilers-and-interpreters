@@ -94,7 +94,6 @@ void emit (int t, int tval)  /*  generates output  */
 				case '/' :
 					printf("%c\n", t);
 					calculate(t);
-
 					break;
 				case '=' :
 					 symtable[tval].value = pop();
