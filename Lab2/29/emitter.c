@@ -9,6 +9,7 @@ int stack[MAX];
 
 void push(int num)
 {
+
    if (top==MAX-1)
    {
 	   	printf("\nStack is full!!");
