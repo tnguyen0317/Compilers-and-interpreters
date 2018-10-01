@@ -13,6 +13,7 @@ http://basen.oru.se/kurser/koi/2018-2019-p1/index.html
 ## Authors
 
 * **[Thong Nguyen](https://github.com/tnguyen0317)**
+* **[Edin Jelecevic](https://github.com/edojay)**
 
 ## License
 This project is licensed under the MIT License.
