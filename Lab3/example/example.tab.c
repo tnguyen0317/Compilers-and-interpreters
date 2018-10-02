@@ -372,16 +372,16 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  2
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   24
+#define YYLAST   29
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  11
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  3
+#define YYNNTS  4
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  9
+#define YYNRULES  10
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  17
+#define YYNSTATES  18
 
 /* YYTRANSLATE[YYX] -- Symbol number corresponding to YYX as returned
    by yylex, with out-of-bounds checking.  */
@@ -428,7 +428,8 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    15,    15,    16,    17,    18,    19,    20,    21,    22
+       0,    15,    15,    16,    17,    18,    18,    19,    20,    21,
+      22
 };
 #endif
 
@@ -438,7 +439,7 @@ static const yytype_uint8 yyrline[] =
 static const char *const yytname[] =
 {
   "$end", "error", "$undefined", "PLUS", "MINUS", "STAR", "DIV", "LPAREN",
-  "RPAREN", "NUMBER", "NEWLINE", "$accept", "line", "expr", YY_NULLPTR
+  "RPAREN", "NUMBER", "NEWLINE", "$accept", "line", "expr", "@1", YY_NULLPTR
 };
 #endif
 
@@ -466,8 +467,8 @@ static const yytype_uint16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      -3,     0,    -3,    13,    -3,    -2,    11,    13,    13,    13,
-      13,    -3,    -3,    18,    18,    -1,    -3
+      -3,     0,    -3,    18,    -3,    -2,    11,    18,    18,    18,
+      18,    -3,    -3,    17,    23,    -1,    -3,    -3
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -475,20 +476,20 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       2,     0,     1,     0,     9,     0,     0,     0,     0,     0,
-       0,     3,     4,     5,     6,     7,     8
+       2,     0,     1,     0,    10,     0,     0,     0,     0,     0,
+       0,     3,     4,     5,     7,     8,     9,     6
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -3,    -3,     3
+      -3,    -3,     3,    -3
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     1,     5
+      -1,     1,     5,    17
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -498,14 +499,14 @@ static const yytype_uint8 yytable[] =
 {
        2,     7,     8,     9,    10,    10,     6,     3,    11,     4,
       13,    14,    15,    16,     7,     8,     9,    10,     0,    12,
-       3,     0,     4,     9,    10
+       7,     8,     9,    10,     0,     3,     0,     4,     9,    10
 };
 
 static const yytype_int8 yycheck[] =
 {
        0,     3,     4,     5,     6,     6,     3,     7,    10,     9,
        7,     8,     9,    10,     3,     4,     5,     6,    -1,     8,
-       7,    -1,     9,     5,     6
+       3,     4,     5,     6,    -1,     7,    -1,     9,     5,     6
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
@@ -513,19 +514,21 @@ static const yytype_int8 yycheck[] =
 static const yytype_uint8 yystos[] =
 {
        0,    12,     0,     7,     9,    13,    13,     3,     4,     5,
-       6,    10,     8,    13,    13,    13,    13
+       6,    10,     8,    13,    13,    13,    13,    14
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,    11,    12,    12,    13,    13,    13,    13,    13,    13
+       0,    11,    12,    12,    13,    14,    13,    13,    13,    13,
+      13
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     0,     3,     3,     3,     3,     3,     3,     1
+       0,     2,     0,     3,     3,     0,     4,     3,     3,     3,
+       1
 };
 
 
@@ -1204,47 +1207,53 @@ yyreduce:
         case 3:
 #line 16 "example.y" /* yacc.c:1646  */
     { printf("%d\n", (yyvsp[-1])); }
-#line 1208 "example.tab.c" /* yacc.c:1646  */
+#line 1211 "example.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
 #line 17 "example.y" /* yacc.c:1646  */
     { (yyval) = (yyvsp[-1]); }
-#line 1214 "example.tab.c" /* yacc.c:1646  */
+#line 1217 "example.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
 #line 18 "example.y" /* yacc.c:1646  */
     { (yyval) = (yyvsp[-2]) + (yyvsp[0]); }
-#line 1220 "example.tab.c" /* yacc.c:1646  */
+#line 1223 "example.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 19 "example.y" /* yacc.c:1646  */
-    { (yyval) = (yyvsp[-2]) - (yyvsp[0]); }
-#line 1226 "example.tab.c" /* yacc.c:1646  */
+#line 18 "example.y" /* yacc.c:1646  */
+    { printf("%d\n%d\n%c\n", (yyvsp[-3]), (yyvsp[-1]),(yyvsp[-2])); }
+#line 1229 "example.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 20 "example.y" /* yacc.c:1646  */
-    { (yyval) = (yyvsp[-2]) * (yyvsp[0]); }
-#line 1232 "example.tab.c" /* yacc.c:1646  */
+#line 19 "example.y" /* yacc.c:1646  */
+    { (yyval) = (yyvsp[-2]) - (yyvsp[0]); }
+#line 1235 "example.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 21 "example.y" /* yacc.c:1646  */
-    { (yyval) = (yyvsp[-2]) / (yyvsp[0]); }
-#line 1238 "example.tab.c" /* yacc.c:1646  */
+#line 20 "example.y" /* yacc.c:1646  */
+    { (yyval) = (yyvsp[-2]) * (yyvsp[0]); }
+#line 1241 "example.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
+#line 21 "example.y" /* yacc.c:1646  */
+    { (yyval) = (yyvsp[-2]) / (yyvsp[0]); }
+#line 1247 "example.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 10:
 #line 22 "example.y" /* yacc.c:1646  */
     { (yyval) = (yyvsp[0]); }
-#line 1244 "example.tab.c" /* yacc.c:1646  */
+#line 1253 "example.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1248 "example.tab.c" /* yacc.c:1646  */
+#line 1257 "example.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires

@@ -2,9 +2,18 @@
 
 %{
 #include <stdio.h>
-#include "29.tab.h"
+
 %}
+
 
 %option noyywrap
 
+%%
 
+[ \t]+    { /* ignore whitespace */ }
+
+[0-9]+    { yylval = atoi(yytext); return NUMBER; }
+.         { printf("Ignoring invalid character '%s'\n", yytext); }
+
+
+%% 

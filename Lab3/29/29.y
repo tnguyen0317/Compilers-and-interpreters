@@ -3,25 +3,39 @@
 	#include <stdlib.h>
 	#include <ctype.h>
 	#include "29.tab.h"
-	#include "lexer.c"
+	#include "global.h"
 	
 	extern int tokenval;
 	
 	extern void yyerror(char*);
-	extern int yylex(void);
+	extern int yylex();
 	extern int yyparse();
 %}
 
-%token DONE ID NUM DIV MOD PLUS MINUS STAR DIV EXP LPAREN RPAREN NUMBER NEWLINE
-%left PLUS MINUS
-%left STAR DIV
-%left EXP
+%token DONE ID NUM
+
+%left '+' '-'
+%left '*' '/'
+%left '^'
 
 
 %%
 
-start: DONE
-				;
+
+start : start expr  { printf("%d\n", $2); }
+
+expr : '(' expr ')'     { $$ = $2; }
+     | expr '+' expr         { $$ = $1 + $3; }
+     | expr '-' expr        { $$ = $1 - $3; }
+     | expr '*' expr         { $$ = $1 * $3; }
+     | expr '/' expr					{ $$ = $1 / $3; }
+     | expr '^' expr				{ $$ = $1 ^ $3; }
+     | NUM
+     | ID 
+     | /* empty */ 
+     ;
+
+
 
 %%
 
@@ -40,7 +54,7 @@ void parse() {
 }
 
 int main() {
-	yyparse();
+	printf("%d\n", yyparse());
 	return 0;
 }
 
