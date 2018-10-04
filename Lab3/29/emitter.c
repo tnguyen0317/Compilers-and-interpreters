@@ -61,13 +61,13 @@ void calculate(char operator)
 				push(var1+var2);
 
 			else if (operator == '-')
-				push(var2-var1);
+				push(var1-var2);
 
 			else if (operator == '*')
 				push(var1*var2);
 
 			else if (operator == '/')
-				push(var2/var1);
+				push(var1/var2);
 
 			else if (operator == '^')
 				push(power(var2,var1));

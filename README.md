@@ -6,11 +6,14 @@ Laborations done in the course [Compilers and Interpreters](http://lily.oru.se/s
 ```
 $ git clone https://github.com/tnguyen0317/Compilers-and-interpreters
 ```
+### Course Website
 
+http://basen.oru.se/kurser/koi/2018-2019-p1/index.html
 
 ## Authors
 
 * **[Thong Nguyen](https://github.com/tnguyen0317)**
+* **[Edin Jelecevic](https://github.com/edojay)**
 
 ## License
 This project is licensed under the MIT License.
