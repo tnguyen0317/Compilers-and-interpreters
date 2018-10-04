@@ -1,6 +1,6 @@
 /* lexer.c */
 
-#include "29.tab.h"
+#include "29.tab.hpp"
 #include "global.h"
 
 #define BSIZE  128  /* buffer size */
@@ -36,7 +36,7 @@ int lexan ()  /*  lexical analyzer  */
 
         b = b + 1;
         if (b >= BSIZE)
-          error("compiler error");
+          error((char *)"compiler error");
       }
       lexbuf[b] = EOS;
       if (t != EOF)

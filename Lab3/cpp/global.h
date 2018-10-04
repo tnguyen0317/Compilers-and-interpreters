@@ -21,7 +21,7 @@ struct entry {  /*  form of symbol table entry  */
 extern struct entry symtable[];  /* symbol table  */
 
 extern void init();  /*  loads keywords into symtable  */
-extern void error(char* m);  /*  generates all error messages  */
+extern void error(char *m);  /*  generates all error messages  */
 extern int lexan();  /*  lexical analyzer  */
 extern void parse();  /*  parses and translates expression list  */
 extern int insert(char *s, int tok);  /*  returns position of entry for s */

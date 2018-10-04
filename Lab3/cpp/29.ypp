@@ -2,14 +2,14 @@
 	#include <stdio.h>
 	#include <stdlib.h>
 	#include <ctype.h>
-	#include "29.tab.h"
+	#include "29.tab.hpp"
 	#include "global.h"
-	#include "math.h"
 
-	extern void yyerror(char*);
-	extern int yylex();
+	extern void yyerror(char const *s);
+	extern int yylex(void);
 	extern int yyparse();
-	int power();
+	int power(int base, int exp);
+	
 
 %}
 
@@ -45,7 +45,6 @@ expr : '(' expr ')'     { $$ = $2; }
      | expr '/' expr		{ $$ = $1 / $3; }
      | expr '^' expr		{ $$ = power($1,$3); }
      | expr '%' expr		{	$$ = $1 % $3;	}
-     | expr '&' expr		{ $$ = $1 & $3;	}
      | expr '|' expr		{ $$ = $1 | $3;	}
      | expr '<' expr		{ $$ = $1 < $3;	}
      | expr '>' expr		{ $$ = $1 > $3;	}
@@ -74,7 +73,7 @@ int power(int base, int exp)
 
 }
 
-void yyerror(char *s) {
+void yyerror(char const *s) {
 		fprintf(stderr, "%s\n", s);
 }			
 

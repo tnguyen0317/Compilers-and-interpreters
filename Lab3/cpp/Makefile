@@ -1,32 +1,32 @@
 CC = gcc
 CFLAGS += -Wall -std=c99 -g
 OBJ = lexer.o symbol.o error.o
-SRC = lexer.c symbol.c error.c
+SRC = lexer.cpp symbol.cpp error.cpp
 
 
-29: 29.tab.o 29.tab.h $(OBJ)
-	gcc $(CFLAGS) -o 29 29.tab.o $(OBJ)
+29: 29.tab.o 29.tab.hpp $(OBJ)
+	gcc -o 29 29.tab.o $(OBJ)
 	
-29.tab.c 29.tab.h: 29.y
-	bison -d 29.y
+29.tab.cpp 29.tab.hpp: 29.ypp
+	bison -d 29.ypp
 	
-lexer.o: 	lexer.c global.h
-	gcc -Wall -c lexer.c
+lexer.o: 	lexer.cpp global.h
+	gcc -Wall -c lexer.cpp
 
-parser.o: 	parser.c global.h
-	gcc -Wall -c parser.c
+parser.o: 	parser.cpp global.h
+	gcc -Wall -c parser.cpp
 
-emitter.o: 	emitter.c global.h
-	gcc -Wall -c emitter.c
+emitter.o: 	emitter.cpp global.h
+	gcc -Wall -c emitter.cpp
 
-symbol.o: 	symbol.c global.h
-	gcc -Wall -c symbol.c
+symbol.o: 	symbol.cpp global.h
+	gcc -Wall -c symbol.cpp
 
-init.o: 	init.c global.h
-	gcc -Wall -c init.c
+init.o: 	init.cpp global.h
+	gcc -Wall -c init.cpp
 
-error.o: 	error.c global.h
-	gcc -Wall -c error.c
+error.o: 	error.cpp global.h
+	gcc -Wall -c error.cpp
 
 clean:
-	$(RM) 29 29.tab.o 29.tab.c 29.tab.h lex.yy.o lex.yy.c
+	$(RM) 29 29.tab.o 29.tab.cpp 29.tab.hpp lex.yy.o lex.yy.cpp
