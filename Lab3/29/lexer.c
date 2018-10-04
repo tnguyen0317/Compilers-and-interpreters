@@ -2,6 +2,7 @@
 
 #include "29.tab.h"
 #include "global.h"
+
 #define BSIZE  128  /* buffer size */
 #define NONE   -1
 #define EOS    '\0'
@@ -23,14 +24,16 @@ int lexan ()  /*  lexical analyzer  */
       lineno = lineno + 1;
     else if (isdigit (t)) {  /*  t is a digit  */
       ungetc(t, stdin);
-      scanf("%d", &tokenval);
+      scanf("%d", &yylval);
       return NUM;
     }
     else if (isalpha(t)) {  /*  t is a letter */
+    	//yylval = p;
       int p, b = 0;
       while (isalnum(t)) {  /* t is alphanumeric  */
         lexbuf [b] = t; 
         t = getchar ();
+
         b = b + 1;
         if (b >= BSIZE)
           error("compiler error");
@@ -39,9 +42,15 @@ int lexan ()  /*  lexical analyzer  */
       if (t != EOF)
         ungetc(t, stdin);
       p = lookup (lexbuf);
-      if (p == 0)
+      if (p == 0){
         p = insert (lexbuf, ID);
+        printf("id inserted in symtable::p=%d\n",p);
+        printf("lexbuf=%s\n", lexbuf);
+        }
       tokenval = p;
+      //printf("yytext=%s\n",yytext);
+      printf("p=%d\n",p);
+      //yylval = p;
       return symtable[p].token;
     }
     else if (t == EOF)
