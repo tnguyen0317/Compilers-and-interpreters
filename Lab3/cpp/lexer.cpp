@@ -28,7 +28,6 @@ int lexan ()  /*  lexical analyzer  */
       return NUM;
     }
     else if (isalpha(t)) {  /*  t is a letter */
-    	//yylval = p;
       int p, b = 0;
       while (isalnum(t)) {  /* t is alphanumeric  */
         lexbuf [b] = t; 
@@ -42,15 +41,10 @@ int lexan ()  /*  lexical analyzer  */
       if (t != EOF)
         ungetc(t, stdin);
       p = lookup (lexbuf);
-      if (p == 0){
+      if (p == 0)
         p = insert (lexbuf, ID);
-        printf("id inserted in symtable::p=%d\n",p);
-        printf("lexbuf=%s\n", lexbuf);
-        }
       tokenval = p;
-      //printf("yytext=%s\n",yytext);
-      printf("p=%d\n",p);
-      //yylval = p;
+      yylval = p;
       return symtable[p].token;
     }
     else if (t == EOF)
