@@ -32,7 +32,7 @@ start : start expr ';' { printf("%d\n", $2); }
 	;
 
 expr : '(' expr ')'     { $$ = $2; }
-     | expr '+' expr    { $$ = $1 + $3; }
+     | expr '+' expr    { $$ = $1 + $3; printf("[Added %d and %d]\n", $1, $3); }
      | expr '-' expr    { $$ = $1 - $3; }
      | expr '*' expr    { $$ = $1 * $3; }
      | expr '/' expr	{ $$ = $1 / $3; }
@@ -43,11 +43,11 @@ expr : '(' expr ')'     { $$ = $2; }
      | expr '<' expr	{ $$ = ($1 < $3); }
      | expr '>' expr	{ $$ = ($1 > $3); }
      | expr '?' expr ':' expr	{ $$ = ($1 ? $3 : $5); }
-     | NUM
+     | NUM            {  printf("[NUM %d]\n", $1); $$ = $1;  }
      | ID							{	$$ = symtable[$1].value; }
      ;
 
-assignment : ID '=' expr	{ $$ = symtable[$1].value = $3; printf("%s=%d\n",symtable[$1].lexptr,symtable[$1].value ); }
+assignment : ID '=' expr	{ symtable[$1].value = $3; printf("[%s=%d]\n",symtable[$1].lexptr, $3); }
 			;
 
 

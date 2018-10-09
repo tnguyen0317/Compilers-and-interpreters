@@ -11,24 +11,43 @@ int fileno(FILE *stream);		//lagt till
 
 %}
 
-delim [\t\n]
+delim [ \t\n]
 ws {delim}+
-letter[A-Z a-z]
+letter[A-Za-z]
 digit [0-9]
 id {letter}({letter}|{digit})*
 num {digit}+
 
 %option noyywrap
-%option noinput
-%option nounput
 
 %%
-{ws}
-{id} 	  {yylval = symtable[yylval].value;}
-[ \t]+    { /* ignore whitespace */ }
 
-[0-9]+    { yylval = atoi(yytext); return NUM; }
+[ \t\n]+    { /* ignore whitespace */ }
+"("				{ return '('; }
+")"				{ return ')'; }
+"+"				{ return '+'; }
+"-"				{ return '-'; }
+"*"				{ return '*'; }
+"/"				{ return '/'; }
+"^"				{ return '^'; }
+"="				{ return '='; }
+"?"				{ return '?'; }
+";"				{ return ';'; }
+"<"				{ return '<'; }
+">"				{ return '>'; }
+":"				{ return ':'; }
+"%"				{ return '%'; }
+"&"				{ return '&'; }
+"|"				{ return '|'; }
+[0-9]+    { yylval = atoi(yytext); printf("[Found NUM %d]\n", yylval); return NUM; }
+{id} 	  {
+					int p;
+					p = lookup(yytext);
+					if (p == 0)
+						p = insert(yytext,ID);
+					
+					yylval = p;
+					return ID;
+				}	
 .         { printf("Ignoring invalid character '%s'\n", yytext); }
-
-
 %% 

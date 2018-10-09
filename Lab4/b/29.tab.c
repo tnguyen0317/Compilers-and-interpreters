@@ -1245,7 +1245,7 @@ yyreduce:
 
   case 6:
 #line 35 "29.y" /* yacc.c:1646  */
-    { (yyval) = (yyvsp[-2]) + (yyvsp[0]); }
+    { (yyval) = (yyvsp[-2]) + (yyvsp[0]); printf("[Added %d and %d]\n", (yyvsp[-2]), (yyvsp[0])); }
 #line 1250 "29.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1309,20 +1309,26 @@ yyreduce:
 #line 1310 "29.tab.c" /* yacc.c:1646  */
     break;
 
+  case 17:
+#line 46 "29.y" /* yacc.c:1646  */
+    {  printf("[NUM %d]\n", (yyvsp[0])); (yyval) = (yyvsp[0]);  }
+#line 1316 "29.tab.c" /* yacc.c:1646  */
+    break;
+
   case 18:
 #line 47 "29.y" /* yacc.c:1646  */
     {	(yyval) = symtable[(yyvsp[0])].value; }
-#line 1316 "29.tab.c" /* yacc.c:1646  */
+#line 1322 "29.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
 #line 50 "29.y" /* yacc.c:1646  */
-    { (yyval) = symtable[(yyvsp[-2])].value = (yyvsp[0]); printf("%s=%d\n",symtable[(yyvsp[-2])].lexptr,symtable[(yyvsp[-2])].value ); }
-#line 1322 "29.tab.c" /* yacc.c:1646  */
+    { symtable[(yyvsp[-2])].value = (yyvsp[0]); printf("[%s=%d]\n",symtable[(yyvsp[-2])].lexptr, (yyvsp[0])); }
+#line 1328 "29.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1326 "29.tab.c" /* yacc.c:1646  */
+#line 1332 "29.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
