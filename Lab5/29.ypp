@@ -1,0 +1,99 @@
+%{
+	#include <stdio.h>
+	#include <stdlib.h>
+	#include <ctype.h>
+	#include "29.tab.hpp"
+	#include "global.h"
+	#include "treenode.cpp"
+	
+	extern void yyerror(char const *s);
+	extern int yylex(void);
+	extern int yyparse();
+	int power(int base, int exp);
+	
+
+%}
+
+
+
+%token DONE ID NUM
+
+%right '='
+%right ':'
+%right '?'
+%left '|'
+%left '&'
+%nonassoc '<' '>'
+%left '+' '-'
+%left '*' '/' '%'
+%left '^'
+
+%union {
+	TreeNode* p;
+	int	i;
+}
+
+%type <p> expr term
+%type <i> ID NUM
+
+
+%%
+
+
+line : /* empty */
+			| line expr ';'
+
+
+expr : expr '+' term    { $$ = mknode('+', $1, $3); }
+     | expr '-' term    { $$ = mknode('-', $1, $3); }
+		 | term							{ $$ = $1;	}
+     //| expr '*' term    { $$ = mknode('*', $1, $3); }
+     //| expr '/' term		{ $$ = mknode('/', $1, $3); }
+     //| expr '^' term		{ $$ = mknode('^', $1, $3); }
+     //| expr '%' term		{	$$ = mknode('%', $1, $3);	}
+     //| expr '|' term		{ $$ = mknode('|', $1, $3);	}
+     //| expr '<' term		{ $$ = mknode('<', $1, $3);	}
+     //| expr '>' term		{ $$ = mknode('>', $1, $3);	}
+     //| expr '&' term		{ $$ = mknode('&', $1, $3);	}
+		 
+
+term : '(' expr ')'			{ $$ = $2; }
+		 |	ID							{	$$ = mkleaf($1, symtable[$1].value); }
+		 |	NUM							{	$$ = mkleaf($1, $1);	}
+		 
+		 ;
+	  
+%%
+
+int power(int base, int exp)
+{
+  		if (exp == 0)
+    		return 1;
+
+
+  		int i, result = 1;
+  		for (i = 0; i < exp; i++)	
+    		result *= base;
+  		return result;
+
+}
+
+void yyerror(char const *s) {
+		fprintf(stderr, "%s\n", s);
+}			
+
+int yylex(void) {
+	return lexan();
+}
+
+
+void parse() {
+	yyparse();
+}
+
+
+int main() {
+	printf("%d\n", yyparse());
+	return 0;
+}
+
