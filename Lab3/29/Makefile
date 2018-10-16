@@ -13,17 +13,8 @@ SRC = lexer.c symbol.c error.c
 lexer.o: 	lexer.c global.h
 	gcc -Wall -c lexer.c
 
-parser.o: 	parser.c global.h
-	gcc -Wall -c parser.c
-
-emitter.o: 	emitter.c global.h
-	gcc -Wall -c emitter.c
-
 symbol.o: 	symbol.c global.h
 	gcc -Wall -c symbol.c
-
-init.o: 	init.c global.h
-	gcc -Wall -c init.c
 
 error.o: 	error.c global.h
 	gcc -Wall -c error.c
