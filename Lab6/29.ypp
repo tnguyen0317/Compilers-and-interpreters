@@ -1,0 +1,109 @@
+%{
+	#include <stdio.h>
+	#include <stdlib.h>
+	#include <ctype.h>
+	
+	#include "treenode.h"
+	#include "global.h"
+	#include "29.tab.hpp"
+	
+	extern void yyerror(char const *s);
+	extern int yylex(void);
+	extern int yyparse();
+	int power(int base, int exp);
+	void printtree(TreeNode* p);
+	void printtree1(TreeNode* p, int level);
+	
+
+%}
+
+
+
+%token DONE ID NUM WHILE IF ELSE PRINT READ
+
+%right '='
+%right ':'
+%right '?'
+%left '|'
+%left '&'
+%nonassoc '<' '>'
+%left '+' '-'
+%left '*' '/' '%'
+%left '^'
+
+%union {
+	TreeNode* p;
+	int	i;
+}
+
+%type <p> expr stat stat_list
+%type <i> ID NUM
+
+
+%%
+
+
+program: stat_list DONE {  printtree($1); }
+		 
+
+stat : expr ';'												 { $$ = $1; }
+		 |  IF '(' expr ')' stat					 { $$ = mknode(IF, $3, $5); }
+		 |	IF '(' expr ')'	stat ELSE stat { $$ = mknode(IF, $3, $5, $7); }	
+		 |  WHILE '(' expr ')' stat 			 { $$ = mknode(WHILE, $3, $5); }
+		 | '{' stat_list '}' 							 { $$ = $2;}
+		 | PRINT expr ';'								   { $$ = mknode(PRINT, $2); }
+		 | READ  expr ';' 								 { $$ = mknode(READ, $2); }
+		 | ';'														 { $$ = mknode(';');}
+		 ;
+		 
+stat_list :	/* empty */
+		 | 		stat						{ $$ = $1;	}
+		 |		stat_list	stat	{ $$ = mknode(';', $1, $2);}
+		 ;
+
+expr : expr '+' expr    { $$ = mknode('+', $1, $3); }
+     | expr '-' expr    { $$ = mknode('-', $1, $3); }
+     | expr '*' expr    { $$ = mknode('*', $1, $3); }
+     | expr '/' expr		{ $$ = mknode('/', $1, $3); }
+     | expr '^' expr		{ $$ = mknode('^', $1, $3); }
+     | expr '%' expr		{	$$ = mknode('%', $1, $3);	}
+     | expr '|' expr		{ $$ = mknode('|', $1, $3);	}
+     | expr '<' expr		{ $$ = mknode('<', $1, $3);	}
+     | expr '>' expr		{ $$ = mknode('>', $1, $3);	}
+     | expr '&' expr		{ $$ = mknode('&', $1, $3);	}
+     | expr '=' expr		{	$$ = mknode('=', $1, $3); }
+ 		 | '(' expr ')'			{ $$ = $2; }
+		 |	ID							{	$$ = mkleaf(ID, $1); }
+		 |	NUM							{	$$ = mkleaf(NUM, $1);}
+		 ;
+	  
+%%
+
+int power(int base, int exp)
+{
+  		if (exp == 0)
+    		return 1;
+
+
+  		int i, result = 1;
+  		for (i = 0; i < exp; i++)	
+    		result *= base;
+  		return result;
+
+}
+
+void yyerror(char const *s) {
+		fprintf(stderr, "%s\n", s);
+}			
+
+
+void parse() {
+	yyparse();
+}
+
+
+int main() {
+	printf("%d\n", yyparse());
+	return 0;
+}
+
