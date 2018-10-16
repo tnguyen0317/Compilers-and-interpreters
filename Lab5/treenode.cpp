@@ -1,10 +1,4 @@
-#define MAX_ARGS 3
-
-struct TreeNode {
-	int type;
-	int leaf_value;
-	TreeNode* args[MAX_ARGS];
-};
+#include "treenode.h"
 
 TreeNode* mkleaf(int type, int value){
 	TreeNode* p = new TreeNode();
@@ -13,7 +7,7 @@ TreeNode* mkleaf(int type, int value){
 	return p;
 }
 
-TreeNode* mknode(int type, TreeNode* a0 = 0, TreeNode* a1 = 0, TreeNode* a2 = 0){
+TreeNode* mknode(int type, TreeNode* a0, TreeNode* a1, TreeNode* a2){
 	TreeNode* p = new TreeNode();
 	p->type = type;
 	p->args[0] = a0;
@@ -21,4 +15,5 @@ TreeNode* mknode(int type, TreeNode* a0 = 0, TreeNode* a1 = 0, TreeNode* a2 = 0)
 	p->args[2] = a2;
 	return p;
 }
+
 

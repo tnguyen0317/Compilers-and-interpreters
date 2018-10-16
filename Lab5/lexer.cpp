@@ -7,6 +7,7 @@
 #define NONE   -1
 #define EOS    '\0'
 
+
 char lexbuf[BSIZE];
 int  lineno = 1;
 int  tokenval = NONE;
@@ -24,7 +25,7 @@ int lexan ()  /*  lexical analyzer  */
       lineno = lineno + 1;
     else if (isdigit (t)) {  /*  t is a digit  */
       ungetc(t, stdin);
-      scanf("%d", &yylval);
+      scanf("%d", &yylval.i);
       return NUM;
     }
     else if (isalpha(t)) {  /*  t is a letter */
@@ -44,7 +45,7 @@ int lexan ()  /*  lexical analyzer  */
       if (p == 0)
         p = insert (lexbuf, ID);
       tokenval = p;
-      yylval = p;
+      yylval.i = p;
       return symtable[p].token;
     }
     else if (t == EOF)
