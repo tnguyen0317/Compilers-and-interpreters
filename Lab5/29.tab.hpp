@@ -47,7 +47,12 @@ extern int yydebug;
   {
     DONE = 258,
     ID = 259,
-    NUM = 260
+    NUM = 260,
+    WHILE = 261,
+    IF = 262,
+    ELSE = 263,
+    PRINT = 264,
+    READ = 265
   };
 #endif
 
@@ -61,7 +66,7 @@ union YYSTYPE
 	TreeNode* p;
 	int	i;
 
-#line 65 "29.tab.hpp" /* yacc.c:1909  */
+#line 70 "29.tab.hpp" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

@@ -1,7 +1,8 @@
 /* lexer.c */
 
-#include "29.tab.hpp"
 #include "global.h"
+#include "treenode.h"
+#include "29.tab.hpp"
 
 #define BSIZE  128  /* buffer size */
 #define NONE   -1
