@@ -20,5 +20,9 @@ void printtree1(TreeNode* p, int level);
 
 void printtree(TreeNode* p);
 
+int execute(TreeNode* tree);
+
+int power(int base, int exp);
+
 
 #endif
