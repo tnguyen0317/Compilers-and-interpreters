@@ -45,6 +45,9 @@ num {digit}+
 "if"			{ return IF;		}
 "while"		{ return WHILE;	}
 "else"		{ return ELSE;	}
+"or"			{ return OR;		}
+"and"			{ return AND;		}
+"!"				{ return NOT;		}
 "{"				{ return '{';		}
 "}"				{ return '}';		}
 [0-9]+    { yylval.i = atoi(yytext); return NUM; }
