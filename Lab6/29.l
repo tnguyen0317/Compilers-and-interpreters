@@ -40,6 +40,7 @@ num {digit}+
 "&"				{ return '&'; }
 "|"				{ return '|'; }
 "done"		{ return DONE;  }
+"=="			{ return EQUALS;}
 "print"		{ return PRINT; }
 "read"		{ return READ;	}
 "if"			{ return IF;		}

@@ -18,153 +18,169 @@ TreeNode* mknode(int type, TreeNode* a0, TreeNode* a1, TreeNode* a2){
 	return p;
 }
 
-int execute(TreeNode* tree){
+int execute(TreeNode* p){
 
-	if (tree->type == NUM)
-		return tree->leaf_value;
+	if (p->type == NUM)
+		return p->leaf_value;
 		
-	else if (tree->type == ID)
-		return symtable[tree->leaf_value].value;
-	else if (tree->type == '+')
+	else if (p->type == ID)
+		return symtable[p->leaf_value].value;
+	else if (p->type == '+')
 	{
-		int arg1 = execute(tree->args[0]);
-		int arg2 = execute(tree->args[1]);
+		int arg1 = execute(p->args[0]);
+		int arg2 = execute(p->args[1]);
 		
 		return arg1+arg2;
 	}
 	
-	else if (tree->type == '-')
+	else if (p->type == '-')
 	{
-		int arg1 = execute(tree->args[0]);
-		int arg2 = execute(tree->args[1]);
+		int arg1 = execute(p->args[0]);
+		int arg2 = execute(p->args[1]);
 		
 		return arg1-arg2;
 	}
 	
-	else if (tree->type == '*')
+	else if (p->type == '*')
 	{
-		int arg1 = execute(tree->args[0]);
-		int arg2 = execute(tree->args[1]);
+		int arg1 = execute(p->args[0]);
+		int arg2 = execute(p->args[1]);
 		
 		return arg1*arg2;
 	}
 		
-	else if (tree->type == '/')
+	else if (p->type == '/')
 	{
-		int arg1 = execute(tree->args[0]);
-		int arg2 = execute(tree->args[1]);
+		int arg1 = execute(p->args[0]);
+		int arg2 = execute(p->args[1]);
 		
 		return arg1/arg2;
 	}		
 	
-	else if (tree->type == '^')
+	else if (p->type == '^')
 	{
-		int arg1 = execute(tree->args[0]);
-		int arg2 = execute(tree->args[1]);
+		int arg1 = execute(p->args[0]);
+		int arg2 = execute(p->args[1]);
 		
 		return power(arg1,arg2);
 	}
 	
-	else if (tree->type == '%')
+	else if (p->type == '%')
 	{
-		int arg1 = execute(tree->args[0]);
-		int arg2 = execute(tree->args[1]);
+		int arg1 = execute(p->args[0]);
+		int arg2 = execute(p->args[1]);
 		
 		return arg1%arg2;
 	}				
 
-	else if (tree->type == '&')
+	else if (p->type == '&')
 	{
-		int arg1 = execute(tree->args[0]);
-		int arg2 = execute(tree->args[1]);
+		int arg1 = execute(p->args[0]);
+		int arg2 = execute(p->args[1]);
 		
 		return arg1&arg2;
 	}		
-	else if (tree->type == '|')
+	else if (p->type == '|')
 	{
-		int arg1 = execute(tree->args[0]);
-		int arg2 = execute(tree->args[1]);
+		int arg1 = execute(p->args[0]);
+		int arg2 = execute(p->args[1]);
 		
 		return arg1&arg2;
 	}		
-	else if (tree->type == '<')
+	else if (p->type == '<')
 	{
-		int arg1 = execute(tree->args[0]);
-		int arg2 = execute(tree->args[1]);
+		int arg1 = execute(p->args[0]);
+		int arg2 = execute(p->args[1]);
 		
 		return arg1<arg2;
 	}		
-	else if (tree->type == '>')
+	else if (p->type == '>')
 	{
-		int arg1 = execute(tree->args[0]);
-		int arg2 = execute(tree->args[1]);
+		int arg1 = execute(p->args[0]);
+		int arg2 = execute(p->args[1]);
 		
 		return arg1>arg2;
 	}		
 	
-	else if (tree->type == '=')
+	else if (p->type == '=')
 	{
-		int arg1 = execute(tree->args[0]);
-		int arg2 = execute(tree->args[1]);
+		int arg1 = execute(p->args[1]);
+		return symtable[p->args[0]->leaf_value].value = arg1;
+	}		
+	
+	else if (p->type == ';')
+	{
+		execute(p->args[0]);
+		execute(p->args[1]);
+		return 0;
+	}				
+	
+	else if(p->type == EQUALS)
+	{
+		int arg1 = execute(p->args[0]);
+		int arg2 = execute(p->args[1]);
 		
-		return arg1 = arg2;
-	}			
+		return arg1 == arg2;
+	}
 
-	else if (tree->type == AND)
+	else if (p->type == AND)
 	{
-		int arg1 = execute(tree->args[0]);
-		int arg2 = execute(tree->args[1]);
+		int arg1 = execute(p->args[0]);
+		int arg2 = execute(p->args[1]);
 		
 		return arg1 && arg2;
 	}		
 	
-	else if (tree->type == OR)
+	else if (p->type == OR)
 	{
-		int arg1 = execute(tree->args[0]);
-		int arg2 = execute(tree->args[1]);
+		int arg1 = execute(p->args[0]);
+		int arg2 = execute(p->args[1]);
 		
 		return arg1 || arg2;
 	}		
 	
-	else if (tree->type == NOT)
+	else if (p->type == NOT)
 	{
-		int arg1 = execute(tree->args[0]);
+		int arg1 = execute(p->args[0]);
 		return !arg1;
 	}		
 	
-	else if (tree->type == IF)
+	else if (p->type == IF)
 		{
-			int condition = execute(tree->args[0]);
+			int condition = execute(p->args[0]);
 			if (condition)
-				return execute(tree->args[1]);
+				return execute(p->args[1]);
 			else
-				return execute(tree->args[2]);
+				return execute(p->args[2]);
 		}
 	
-	else if (tree->type == WHILE)
+	else if (p->type == WHILE)
 	{
-		int condition = execute(tree->args[0]);
+		//int condition = ;
 		
-		while(condition)
-			return execute(tree->args[0]);
-		
+		while(execute(p->args[0]))
+			execute(p->args[1]);
+			
+		return 0;
 	}
-	else if (tree->type == PRINT)
+	else if (p->type == PRINT)
 	{
-		int arg1 = execute(tree->args[0]);
-		
-		return arg1;
+		int arg1 = execute(p->args[0]);
+
+		return printf("%d\n", arg1);
 	}			
-	else if (tree->type == READ)
+	else if (p->type == READ)
 	{
-		int arg1 = execute(tree->args[0]);
-		
+		int arg1 = execute(p->args[0]);
 		scanf("%d", &arg1);
-		
-		return arg1;
+
+		return symtable[p->args[0]->leaf_value].value = arg1;
 	}		
 
 }
+
+
+
 
 void printtree1(TreeNode* p, int level) {
   if (p == 0)
@@ -310,3 +326,5 @@ int power(int base, int exp)
   		return result;
 
 }
+
+
