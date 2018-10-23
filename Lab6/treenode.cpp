@@ -20,7 +20,10 @@ TreeNode* mknode(int type, TreeNode* a0, TreeNode* a1, TreeNode* a2){
 
 int execute(TreeNode* p){
 
-	if (p->type == NUM)
+	if (p == NULL)
+		return 0;
+
+	else if (p->type == NUM)
 		return p->leaf_value;
 		
 	else if (p->type == ID)
@@ -156,7 +159,6 @@ int execute(TreeNode* p){
 	
 	else if (p->type == WHILE)
 	{
-		//int condition = ;
 		
 		while(execute(p->args[0]))
 			execute(p->args[1]);
@@ -326,5 +328,4 @@ int power(int base, int exp)
   		return result;
 
 }
-
 

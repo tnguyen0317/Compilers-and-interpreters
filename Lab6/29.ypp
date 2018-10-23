@@ -57,15 +57,14 @@ stat : expr ';'												 { $$ = $1; }
 		 |	IF '(' expr ')'	stat ELSE stat { $$ = mknode(IF, $3, $5, $7); }	
 		 |  WHILE '(' expr ')' stat 			 { $$ = mknode(WHILE, $3, $5); }
 		 | '{' stat_list '}' 							 { $$ = $2; }
-		 | '{' '}'												 { $$ = NULL; }
 		 | PRINT expr ';'								   { $$ = mknode(PRINT, $2); }
 		 | READ  expr ';' 								 { $$ = mknode(READ, $2); }
 		 | ';'														 { $$ = mknode(';');}
 		 ;
 		 
-stat_list : stat					{ $$ = $1; }
-		 |		stat_list	stat	{ $$ = mknode(';', $1, $2);}
-		 
+stat_list : stat_list	stat	{ $$ = mknode(';', $1, $2);}
+		 | /*empty*/						{ $$ = NULL; }
+
 		 ;
 
 expr : expr '+' expr    { $$ = mknode('+', $1, $3); }
